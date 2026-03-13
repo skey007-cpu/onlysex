@@ -1,6 +1,9 @@
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 // import Image from "next/image";
+import '../globals.css'
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function Layout({
     children,
@@ -9,22 +12,11 @@ export default function Layout({
 }) {
     return (
         <div>
-            <header>
-                <nav>
-                    <div className="flex space-x-6">
-                        <Link href="/sign-in">Sign in</Link>
-                        <Link href="/sign-up">Sign up</Link>
-                    </div>
-                </nav>
-            </header>
-
-            <div className="flex min-h-screen">
+            <Navbar />
+            <main className="relative overflow-hidden">
                 {children}
-            </div>
-
-            <footer>
-                <p>© 2026 Mon SaaS</p>
-            </footer>
+            </main>
+            <Footer />
         </div>
     );
 };

@@ -23,6 +23,28 @@ const config: Config = {
 			},
   			pink: '#EEA8FD',
   			orange: '#F9AB72',
+			// ici
+			greens: {
+              50: '#30AF5B',
+              90: '#292C27',
+			  95: '#c10b0b',
+			},
+            gray: {
+              10: '#EEEEEE',
+              20: '#A2A2A2',
+              30: '#7B7B7B',
+              50: '#585858',
+              90: '#141414',
+            },
+            oranges: {
+              50: '#FF814C',
+            },
+            blues: {
+              70: '#021639',
+            },
+            yellow: {
+              50: '#FEC601',
+            },
   			light: {
   				'100': '#333F4E',
   				'200': '#A3B2C7',
@@ -74,6 +96,23 @@ const config: Config = {
   				'5': 'hsl(var(--chart-5))'
   			}
   		},
+		backgroundImage: {
+        'bg-img-1': "url('/img-1.png')",
+        'bg-img-2': "url('/img-2.png')",
+        'feature-bg': "url('/feature-bg.png')",
+        pattern: "url('/pattern.png')",
+        'pattern-2': "url('/pattern-bg.png')",
+        'pattern-3': "url('/pattern-bg.jpg')",
+        },
+		screens: {
+         xs: '400px',
+        '3xl': '1680px',
+        '4xl': '2200px',
+      },
+	    maxWidth: {
+         '10xl': '1512px',
+       },
+
   		fontFamily: {
   			poppins: ["var(--font-poppins)"]
   		},
@@ -83,6 +122,7 @@ const config: Config = {
   			'drop-3': '0 8px 30px 0 rgba(65, 89, 214, 0.1)'
   		},
   		borderRadius: {
+			'5xl': '40px',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
