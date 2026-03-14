@@ -18,6 +18,48 @@ export const PEOPLE_URL = [
   '/person-4.png',
 ];
 
+export const Francais = [
+  { id:1,
+    photo:'/11690e711d70cce7afba4ae0b6099a03.jpg'
+  },
+  { id:2,
+    photo:'/e0aa876d94781dcc3b4ff89e5ea1cdbf.jpg'
+  },
+  { id:3,
+    photo:'/2826d14d4f4c5328381b99d223123b37.jpg'
+  },
+  { id:4,
+    photo:'/ab79c901d71e94814217b0255ec6750b.jpg'
+ },
+{ id:5,
+    photo:'/1c491759b92447ed62d8bcef1b763040.jpg'
+  },
+{ id:6,
+    photo:'/7dc5f2b781663cc781748372bf570677.jpg'
+  },
+{ id:7,
+    photo:'/bb9331ec9779fbc4f39bb1060b74d29d.jpg'
+  },
+  { id:8,
+    photo:'/40249d749ef3f161cd5c044ef174c13d.jpg'
+  },
+  { id:9,
+    photo:'/dc4bd2595ef7711a4380205d7c3e8ea5.jpg'
+  },
+
+]
+
+export const Newmodel = [
+ { id:1,
+    photo:'/223d63db167c90016255ad7a63da2393.jpg'
+  },
+  { id:2,
+    photo:'/9791b8008c462e843cb4e0af70dbfdb5.jpg'
+  },
+  { id:3,
+    photo:'/2a5a3b06aa4a639f7d4211b4ee75a90d.jpg'
+  },
+]
 // FEATURES SECTION
 export const FEATURES = [
   {
@@ -53,14 +95,14 @@ export const FEATURES = [
 // FOOTER SECTION
 export const FOOTER_LINKS = [
   {
-    title: 'Learn More',
+    title: 'Plus de Services',
     links: [
-      'About Hilink',
-      'Press Releases',
-      'Environment',
-      'Jobs',
-      'Privacy Policy',
-      'Contact Us',
+      'Sextape',
+      'Soft Gratuit',
+      'Masturbation Doigts',
+     'Masturbation Gode',
+      'Vidéos insolites',
+      'Feed Collection',
     ],
   },
   {
@@ -87,3 +129,38 @@ export const SOCIALS = {
     '/wordpress.svg',
   ],
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// femme-sexy-en-lingerie-bordeaux-sur-le-canapé-vue-427624140
+// depositphotos_236272288-stock-photo-beautiful-young-woman-blue-unbuttoned

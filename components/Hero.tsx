@@ -1,6 +1,5 @@
 "use client";
 
-import Image from 'next/image'
 import Button from './Button'
 import { useRouter } from "next/navigation";
 
@@ -19,7 +18,7 @@ const Hero = () => {
           loop
           muted
           playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-cover inset-0 bg-black/40 z-0"
         >
           <source src="/video-bg.mp4" type="video/mp4" />
         </video>
@@ -35,10 +34,9 @@ const Hero = () => {
           className="absolute left-[-5px] top-[-30px] w-10 lg:w-[50px]"
         /> */}
         <h1 className="bold-52 lg:bold-88 text-white">Arrête de te branler sur des webcams de nudité</h1>
-        <p className="regular-16 mt-6 text-gray-10 xl:max-w-[520px]">
-          <strong>
-            Tes envies te travaillent ? Ne les résiste plus. Une paire de fesses irrésistible t’attend… contacte-la dès maintenant. </strong> <br /> <br /> <strong> OnlySex
-              vous offre un endroit sûr et anonyme pour vous détendre. <br />
+        <p className="regular-16 mt-6 text-white xl:max-w-[520px]">
+          <br /> <br /> <strong> OnlySex
+            vous offre un endroit sûr et anonyme pour vous détendre. <br />
             Rejoignez-nous en  quelques clics, Choisissez celle qui  vous fait bander, Éliminez votre stress en bonne compagnie</strong>
         </p>
 
@@ -61,8 +59,7 @@ const Hero = () => {
           </p> */}
         </div>
 
-        <div className="flex flex-col w-full gap-3 sm:flex-row">
-
+        <div className="flex flex-col w-full gap-3 sm:flex-row mt-4">
           <Button
             type="button"
             title="Let's Go !!"
