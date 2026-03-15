@@ -20,7 +20,7 @@ const GetApp = () => {
               type="button"
               title="S'inscrire !!"
               variant="btn_white"
-              onClick={() => router.push("/sign-in")}
+              onClick={() => router.push("/sign-up")}
               full
             />
             {/* </div> */}
