@@ -94,7 +94,7 @@ const Camp = () => {
           <Link href="/sign-in" className="inline-block lg:hidden my-6">
             <Button
               type="button"
-              title="Connectez-Vous Pour Continuer"
+              title="Connectez-vous pour continuer"
               variant="btn_dark_greens"
             />
           </Link>

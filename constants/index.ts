@@ -101,21 +101,23 @@ export const FOOTER_LINKS = [
       'Soft Gratuit',
       'Masturbation Doigts',
      'Masturbation Gode',
-      'Vidéos insolites',
+      'Vidéos Insolites',
       'Feed Collection',
     ],
   },
-  {
-    title: 'Our Community',
-    links: ['Climbing xixixi', 'Hiking hilink', 'Hilink kinthill'],
-  },
+  // {
+  //   title: 'Our Community',
+  //   links: ['Climbing xixixi', 'Hiking hilink', 'Hilink kinthill'],
+  // },
 ];
 
 export const FOOTER_CONTACT_INFO = {
-  title: 'Contact Us',
+  title: 'Informations',
   links: [
-    { label: 'Admin Officer', value: '123-456-7890' },
-    { label: 'Email Officer', value: 'hilink@akinthil.com' },
+    { label: 'FAQ' },
+    { label: 'Service Client' },
+    { label: "Programme d'affiliation" },
+    { label: "Influenceurs" },
   ],
 };
 
@@ -125,8 +127,6 @@ export const SOCIALS = {
     '/facebook.svg',
     '/instagram.svg',
     '/twitter.svg',
-    '/youtube.svg',
-    '/wordpress.svg',
   ],
 };
 

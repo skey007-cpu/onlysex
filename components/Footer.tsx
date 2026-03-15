@@ -15,7 +15,7 @@ const Footer = () => {
           <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1'>
             {FOOTER_LINKS.map((columns) => (
               <FooterColumn key={columns.title} title={columns.title}>
-                <ul className="regular-14 flex flex-col gap-4 text-gray-30">
+                <ul className="regular-14 flex flex-col gap-4">
                   {columns.links.map((link) => (
                     <Link href="/" key={link}>
                       {link}
@@ -34,11 +34,11 @@ const Footer = () => {
                     className="flex gap-4 md:flex-col lg:flex-row"
                   >
                     <p className="whitespace-nowrap">
-                      {link.label}:
+                      {link.label}
                     </p>
-                    <p className="medium-14 whitespace-nowrap text-blue-70">
+                    {/* <p className="medium-14 whitespace-nowrap text-blue-70">
                       {link.value}
-                    </p>
+                    </p> */}
                   </Link>
                 ))}
               </FooterColumn>
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
 
         <div className="border bg-gray-20" />
-        <p className="regular-14 w-full text-center text-gray-30">2026 OnlySex | All rights reserved</p>
+        <p className="regular-14 w-full text-center text-gray-30">© 2026 OnlySex | Tous droits Réservés</p>
       </div>
     </footer>
   )

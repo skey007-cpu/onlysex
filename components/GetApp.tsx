@@ -26,7 +26,7 @@ const GetApp = () => {
             {/* </div> */}
             <Button
               type="button"
-              title="Se connecter !!"
+              title="Se Connecter !!"
               variant="btn_dark_green_outline"
               onClick={() => router.push("/sign-in")}
               full
