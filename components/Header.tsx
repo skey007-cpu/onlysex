@@ -4,19 +4,32 @@ import Image from "next/image";
 import Search from "@/components/Search";
 import FileUploader from "@/components/FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
+import Sidebar from "./Sidebar";
+import { getCurrentUser } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
-const Header = ({
+const Header = async ({
   userId,
   accountId,
 }: {
   userId: string;
   accountId: string;
 }) => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) return redirect("/sign-in");
   return (
     <header className="header">
+      <Image
+        src="/onlysexx.png"
+        alt="logo"
+        width={160}
+        height={50}
+        className="hidden h-auto lg:block"
+      />
       <Search />
       <div className="header-wrapper">
-        <FileUploader ownerId={userId} accountId={accountId} />
+        <Sidebar {...currentUser} />
+        {/* <FileUploader ownerId={userId} accountId={accountId} /> */}
         <form
           action={async () => {
             "use server";

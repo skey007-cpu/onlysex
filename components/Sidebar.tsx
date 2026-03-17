@@ -16,10 +16,10 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
   const pathname = usePathname();
 
   return (
-    <aside className="sidebar">
-      <Link href="/">
+    <>
+      {/* <Link href="/">
         <Image
-          src="/assets/icons/dazma.png"
+          src="/onlysexx.png"
           alt="logo"
           width={160}
           height={50}
@@ -27,15 +27,15 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
         />
 
         <Image
-          src="/assets/icons/logo-brand.svg"
+          src="//icons/logo-brand.svg"
           alt="logo"
           width={52}
           height={52}
           className="lg:hidden"
         />
-      </Link>
+      </Link> */}
 
-      <nav className="sidebar-nav">
+      {/* <nav className="sidebar-nav">
         <ul className="flex flex-1 flex-col gap-6">
           {navItems.map(({ url, name, icon }) => (
             <Link key={name} href={url} className="transition-all hover:scale-105 lg:w-full">
@@ -68,7 +68,7 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
         width={506}
         height={418}
         className="w-full transition-all hover:rotate-1 hover:scale-105"
-      />
+      /> */}
 
       <div className="sidebar-user-info">
         <Image
@@ -83,7 +83,7 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
           <p className="caption">{email}</p>
         </div>
       </div>
-    </aside>
+    </>
   );
 };
 export default Sidebar;
