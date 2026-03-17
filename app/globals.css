@@ -148,7 +148,7 @@
     @apply bg-brand hover:bg-brand-100 transition-all rounded-full button !important;
   }
   .btn-prime {
-    @apply bg-blue hover:bg-blue-100 transition-all rounded-full button !important;
+    @apply bg-greens-95 hover:bg-greens-95 transition-all rounded-full button !important;
   }
   .flex-center {
     @apply flex items-center justify-center;
@@ -439,7 +439,7 @@
     @apply flex text-light-100 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center h5 lg:px-[30px] h-[52px] lg:rounded-full !important;
   }
   .sidebar-user-info {
-    @apply mt-0 flex items-center justify-center gap-2 rounded-full bg-blue/10 p-1 text-light-100 lg:justify-start lg:p-3 !important;
+    @apply mt-0 flex items-center justify-center gap-2 rounded-full bg-blue/10 p-0 text-light-100 lg:justify-start lg:p-3 !important;
   }
   .sidebar-user-avatar {
     @apply aspect-square w-10 rounded-full object-cover !important;

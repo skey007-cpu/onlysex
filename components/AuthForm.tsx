@@ -19,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import OtpModal from "@/components/OTPModal";
+import { FieldDemo } from "./FieldDemo";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -75,27 +76,30 @@ const AuthForm = ({ type }: { type: FormType }) => {
                         {type === "sign-in" ? "Sign In" : "Sign Up"}
                     </h1>
                     {type === "sign-up" && (
-                        <FormField
-                            control={form.control}
-                            name="fullName"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <div className="shad-form-item">
-                                        <FormLabel className="shad-form-label">Full Name</FormLabel>
+                        <>
+                            <FormField
+                                control={form.control}
+                                name="fullName"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <div className="shad-form-item">
+                                            <FormLabel className="shad-form-label">Full Name</FormLabel>
 
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Enter your full name"
-                                                className="shad-input"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                    </div>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Enter your full name"
+                                                    className="shad-input"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                        </div>
 
-                                    <FormMessage className="shad-form-message" />
-                                </FormItem>
-                            )}
-                        />
+                                        <FormMessage className="shad-form-message" />
+                                    </FormItem>
+                                )}
+                            />
+                            <FieldDemo />
+                        </>
                     )}
 
                     <FormField
@@ -143,12 +147,12 @@ const AuthForm = ({ type }: { type: FormType }) => {
                     <div className="body-2 flex justify-center">
                         <p className="text-light-100">
                             {type === "sign-in"
-                                ? "Don't have an account?"
-                                : "Already have an account?"}
+                                ? "Don't have an account ?"
+                                : "Already have an account ?"}
                         </p>
                         <Link
                             href={type === "sign-in" ? "/sign-up" : "/sign-in"}
-                            className="ml-1 font-medium text-blue"
+                            className="ml-1 font-medium text-greens-95"
                         >
                             {" "}
                             {type === "sign-in" ? "Sign Up" : "Sign In"}
