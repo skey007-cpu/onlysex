@@ -37,7 +37,7 @@ const OtpModal = ({
     e.preventDefault();
     setIsLoading(true);
 
-    console.log({ accountId, password });
+    // console.log({ accountId, password });
 
     try {
       const sessionId = await verifySecret({ accountId, password });
@@ -60,7 +60,7 @@ const OtpModal = ({
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent className="shad-alert-dialog">
         <AlertDialogHeader className="relative flex justify-center">
-          <AlertDialogTitle className="h2 text-center">
+          <AlertDialogTitle className="h3 text-center">
             Enter Your OTP
             <Image
               src="/assets/icons/close-dark.svg"
@@ -71,12 +71,12 @@ const OtpModal = ({
               className="otp-close-button"
             />
           </AlertDialogTitle>
-          <AlertDialogDescription className="subtitle-2 text-center text-light-100">
-            We&apos;ve sent a code to{" "}
-            <span className="pl-1 text-blue">{email}</span>
-          </AlertDialogDescription>
+          {/*  */}
         </AlertDialogHeader>
-
+        <AlertDialogDescription className="subtitle-2 text-center text-light-100">
+          We&apos;ve sent a code to{" "}
+          <span className="pl-1 text-greens-95">{email}</span>
+        </AlertDialogDescription>
         <InputOTP maxLength={6} value={password} onChange={setPassword}>
           <InputOTPGroup className="shad-otp">
             <InputOTPSlot index={0} className="shad-otp-slot" />
@@ -108,11 +108,11 @@ const OtpModal = ({
             </AlertDialogAction>
 
             <div className="subtitle-2 mt-2 text-center text-light-100">
-              Didn&apos;t get a code?
+              Didn&apos;t get a code ?
               <Button
                 type="button"
                 variant="link"
-                className="pl-1 text-blue"
+                className="pl-1 text-greens-95"
                 onClick={handleResendOtp}
               >
                 Click to resend

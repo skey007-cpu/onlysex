@@ -28,6 +28,7 @@ const config: Config = {
               50: '#30AF5B',
               90: '#292C27',
 			  95: '#c10b0b',
+			  100:'#410404',
 			},
             gray: {
               10: '#EEEEEE',

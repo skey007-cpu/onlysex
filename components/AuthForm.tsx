@@ -19,7 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import OtpModal from "@/components/OTPModal";
-import { FieldDemo } from "./FieldDemo";
+// import { FieldDemo } from "./FieldDemo";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -131,7 +131,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                         )}
                     />
 
-                    {type === "sign-up" && (<FieldDemo />)}
+                    {/* {type === "sign-up" && (<FieldDemo />)} */}
 
                     <Button
                         type="submit"
