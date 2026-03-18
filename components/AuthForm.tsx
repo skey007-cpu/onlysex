@@ -71,6 +71,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
     return (
         <>
             <Form {...form}>
+                <Image
+                    src="/onlysexx.png"
+                    alt="logo"
+                    width={224}
+                    height={82}
+                    className="h-auto hidden lg:block"
+                />
                 <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
                     <h1 className="form-title">
                         {type === "sign-in" ? "Sign In" : "Sign Up"}
@@ -98,7 +105,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                                     </FormItem>
                                 )}
                             />
-                            <FieldDemo />
+
                         </>
                     )}
 
@@ -123,6 +130,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
                             </FormItem>
                         )}
                     />
+
+                    {type === "sign-up" && (<FieldDemo />)}
 
                     <Button
                         type="submit"

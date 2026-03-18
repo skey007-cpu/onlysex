@@ -49,13 +49,14 @@ const years = [
 export function FieldDemo() {
     return (
         <div className="w-full max-w-md">
-            <form>
+            {/* <form> */}
+            <div className="w-full max-w-md">
                 <FieldGroup>
                     <FieldSet>
-                        <FieldLegend>Payment Method</FieldLegend>
-                        <FieldDescription>
+                        {/* <FieldLegend>Payment Method</FieldLegend> */}
+                        {/* <FieldDescription>
                             All transactions are secure and encrypted
-                        </FieldDescription>
+                        </FieldDescription> */}
                         <FieldGroup>
                             <Field>
                                 <FieldLabel htmlFor="checkout-7j9-card-name-43j">
@@ -126,8 +127,8 @@ export function FieldDemo() {
                             </div>
                         </FieldGroup>
                     </FieldSet>
-                    <FieldSeparator />
-                    <FieldSet>
+                    {/* <FieldSeparator /> */}
+                    {/* <FieldSet>
                         <FieldLegend>Billing Address</FieldLegend>
                         <FieldDescription>
                             The billing address associated with your payment method
@@ -160,15 +161,16 @@ export function FieldDemo() {
                                 />
                             </Field>
                         </FieldGroup>
-                    </FieldSet>
-                    <Field orientation="horizontal">
+                    </FieldSet> */}
+                    {/* <Field orientation="horizontal">
                         <Button type="submit">Submit</Button>
                         <Button variant="outline" type="button">
                             Cancel
                         </Button>
-                    </Field>
+                    </Field> */}
                 </FieldGroup>
-            </form>
+            </div>
+            {/* </form> */}
         </div>
     )
 }
