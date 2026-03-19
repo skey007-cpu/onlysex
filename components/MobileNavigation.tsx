@@ -37,18 +37,21 @@ const MobileNavigation = ({
 
   return (
     <header className="mobile-header">
-      <Image
-        src="/assets/icons/logo-full-brand.svg"
+      {/* <Image
+        src="/OnlySexxx.png"
         alt="logo"
         width={120}
-        height={52}
+        height={20}
         className="h-auto"
-      />
+      /> */}
+      <Link href="#" className="my-3">
+        <Image src="/onlySex.png" alt="logo" width={150} height={30} />
+      </Link>
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger>
           <Image
-            src="/assets/icons/menu.svg"
+            src="/menu.svg"
             alt="Search"
             width={30}
             height={30}

@@ -439,14 +439,14 @@
     @apply flex text-light-100 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center h5 lg:px-[30px] h-[52px] lg:rounded-full !important;
   }
   .sidebar-user-info {
-    @apply mt-0 flex items-center justify-center gap-2 rounded-full bg-blue/10 p-0 text-light-100 lg:justify-start lg:p-3 !important;
+    @apply mt-4 flex items-center justify-center gap-2 rounded-full bg-blue/10 p-0 text-light-100 lg:justify-start lg:p-3 !important;
   }
   .sidebar-user-avatar {
     @apply aspect-square w-10 rounded-full object-cover !important;
   }
 
   .shad-active {
-    @apply bg-blue hover:bg-blue-100 transition-all rounded-full button text-white shadow-drop-2 !important;
+    @apply bg-greens-95 transition-all rounded-full button text-white shadow-drop-2 !important;
   }
 
   /* Sort */
