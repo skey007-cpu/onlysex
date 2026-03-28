@@ -12,6 +12,12 @@
           "scrollbar-width: none"
         ]
       }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
     ]
   }
 }

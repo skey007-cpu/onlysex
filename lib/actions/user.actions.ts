@@ -42,9 +42,11 @@ export const sendEmailOTP = async ({ email }: { email: string }) => {
 export const createAccount = async ({
   fullName,
   email,
+  username,
 }: {
   fullName: string;
   email: string;
+  username: string;
 }) => {
   const existingUser = await getUserByEmail(email);
 
@@ -62,6 +64,7 @@ export const createAccount = async ({
         fullName,
         email,
         avatar: avatarPlaceholderUrl,
+        username,
         accountId,
       },
     );
@@ -145,3 +148,4 @@ export const signInUser = async ({ email }: { email: string }) => {
     handleError(error, "Failed to sign in user");
   }
 };
+

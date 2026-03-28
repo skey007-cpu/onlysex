@@ -8,8 +8,28 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+	container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
   	extend: {
   		colors: {
+			"primary-500": "#877EFF",
+        "primary-600": "#5D5FEF",
+        "secondary-500": "#FFB620",
+        "off-white": "#D0DFFF",
+        redo: "#FF5A5A",
+        "dark-1": "#000000",
+        "dark-2": "#09090A",
+        "dark-3": "#101012",
+        "dark-4": "#1F1F22",
+        "light-1": "#FFFFFF",
+        "light-2": "#EFEFEF",
+        "light-3": "#7878A3",
+        "light-4": "#5C5C7B",
   			brand: {
   				'100': '#EA6365',
   				DEFAULT: '#FA7275'
@@ -21,7 +41,7 @@ const config: Config = {
 				DEFAULT:'#7400B8',
 				'100': '#6930C3'
 			},
-  			pink: '#EEA8FD',
+  			pink: '#FF3068',
   			orange: '#F9AB72',
 			// ici
 			greens: {
@@ -136,10 +156,20 @@ const config: Config = {
   				'20%,50%': {
   					opacity: '0'
   				}
-  			}
+  			},
+          "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+            },
+          "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+           },
   		},
   		animation: {
-  			'caret-blink': 'caret-blink 1.25s ease-out infinite'
+  			'caret-blink': 'caret-blink 1.25s ease-out infinite',
+			 "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
   		}
   	}
   },

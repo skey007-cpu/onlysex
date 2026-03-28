@@ -14,6 +14,10 @@ const Header = ({
 }) => {
   return (
     <header className="header">
+      {/* <button type="button" aria-label="Ouvrir le menu">
+        <Image src="/menu.svg" alt="menu" width={30} height={30} />
+      </button> */}
+
       <Search />
       <div className="header-wrapper">
         <FileUploader ownerId={userId} accountId={accountId} />

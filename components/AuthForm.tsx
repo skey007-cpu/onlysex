@@ -30,6 +30,10 @@ const authFormSchema = (formType: FormType) => {
             formType === "sign-up"
                 ? z.string().min(2).max(50)
                 : z.string().optional(),
+        username:
+            formType === "sign-up"
+                ? z.string().min(2).max(50)
+                : z.string().optional(),
     });
 };
 
@@ -43,6 +47,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         resolver: zodResolver(formSchema),
         defaultValues: {
             fullName: "",
+            username: "",
             email: "",
         },
     });
@@ -56,6 +61,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 type === "sign-up"
                     ? await createAccount({
                         fullName: values.fullName || "",
+                        username: values.username || "",
                         email: values.email,
                     })
                     : await signInUser({ email: values.email });
@@ -95,6 +101,27 @@ const AuthForm = ({ type }: { type: FormType }) => {
                                             <FormControl>
                                                 <Input
                                                     placeholder="Enter your full name"
+                                                    className="shad-input"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                        </div>
+
+                                        <FormMessage className="shad-form-message" />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="username"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <div className="shad-form-item">
+                                            <FormLabel className="shad-form-label">Username</FormLabel>
+
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Enter your Username"
                                                     className="shad-input"
                                                     {...field}
                                                 />

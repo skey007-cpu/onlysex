@@ -37,21 +37,20 @@ const OtpModal = ({
     e.preventDefault();
     setIsLoading(true);
 
-    // console.log({ accountId, password });
+    console.log({ accountId, password });
 
     try {
       const sessionId = await verifySecret({ accountId, password });
 
       console.log({ sessionId });
 
-      if (sessionId) router.push("/dashboard");
+      if (sessionId) router.push("/onlyboard");
     } catch (error) {
       console.log("Failed to verify OTP", error);
     }
 
     setIsLoading(false);
   };
-
   const handleResendOtp = async () => {
     await sendEmailOTP({ email });
   };

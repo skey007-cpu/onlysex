@@ -5,45 +5,30 @@ import Image from "next/image";
 import { navItems } from "@/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface Props {
   fullName: string;
   avatar: string;
   email: string;
+  username: string
 }
 
-const Sidebar = ({ fullName, avatar, email }: Props) => {
+const Sidebar = ({ fullName, avatar, email, username }: Props) => {
   const pathname = usePathname();
 
   return (
     <aside className="sidebar">
-      <Link href="#">
-        {/* <Image
-          src="/assets/icons/dazma.png"
-          alt="logo"
-          width={160}
-          height={50}
-          className="hidden h-auto lg:block"
-        /> */}
-        <Image src="/onlySex.png" alt="logo" width={150} height={30} />
-
-        {/* <Image
-          src="/assets/icons/logo-brand.svg"
-          alt="logo"
-          width={52}
-          height={52}
-          className="lg:hidden"
-        /> */}
-      </Link>
-
+      <Image src="/onlySex.png" alt="logo" width={150} height={30} />
       <nav className="sidebar-nav">
         <ul className="flex flex-1 flex-col gap-6">
           {navItems.map(({ url, name, icon }) => (
-            <Link key={name} href={url} className="transition-all hover:scale-105 lg:w-full">
-              <li
+            <li key={name}>
+              <Link
+                href={url}
                 className={cn(
-                  "sidebar-nav-item",
-                  pathname === url && "shad-active",
+                  "sidebar-nav-item transition-all hover:scale-105 lg:w-full",
+                  pathname === url && "shad-active"
                 )}
               >
                 <Image
@@ -53,14 +38,15 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
                   height={24}
                   className={cn(
                     "nav-icon",
-                    pathname === url && "nav-icon-active",
+                    pathname === url && "nav-icon-active"
                   )}
                 />
                 <p className="hidden lg:block">{name}</p>
-              </li>
-            </Link>
+              </Link>
+            </li>
           ))}
         </ul>
+
       </nav>
 
       {/* <Image
@@ -80,7 +66,7 @@ const Sidebar = ({ fullName, avatar, email }: Props) => {
           className="sidebar-user-avatar"
         />
         <div className="hidden lg:block">
-          <p className="subtitle-2 capitalize">{fullName}</p>
+          <p className="subtitle-2 capitalize">{username}</p>
           <p className="caption">{email}</p>
         </div>
       </div>
