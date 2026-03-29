@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/PostCard.jsx", "components/RightSidebar.jsx", "components/MobileHeader.jsx", "components/LeftSidebar.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/PostCard.jsx", "components/RightSidebar.jsx", "components/MobileHeader.jsx", "components/LeftSidebar.jsx", "components/LeftNavButton.jsx"],
   "exclude": ["node_modules"]
 }
