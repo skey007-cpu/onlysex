@@ -2,6 +2,7 @@ import { ChevronLeft, Home, Search, Compass, Film, Send, PlusSquare, User, Bell,
 import React from 'react'
 import Logo from './Logo'
 import LeftNavButton from './LeftNavButton'
+import { navLeftItems } from '@/constants'
 
 const LeftSidebar = ({
     isSidebarOpen, toggleSidebar, toggleDarkMode, isDarkMode
@@ -24,8 +25,8 @@ const LeftSidebar = ({
 
                 {/* <button onClick={toggleSidebar} className='cursor-pointer p-1 absolute right-0 top-1 rounded-full z-99 text-gray-600 dark:text-gray-100/80 hover:backdrop-blur-sm dark:hover:bg-gray-700 hidden xl:block' title={isSidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}>
                     <MenuIcon size={24} className={isSidebarOpen ? "" : "rotate-180"} />
-                </button> */}
-                {/* <button onClick={toggleSidebar} className='cursor-pointer p-1 absolute right-0 top-1 rounded-full z-99 text-gray-600 dark:text-gray-100/80 hover:backdrop-blur-sm dark:hover:bg-gray-700 hidden xl:block' title={isSidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}>
+                </button>
+                <button onClick={toggleSidebar} className='cursor-pointer p-1 absolute right-0 top-1 rounded-full z-99 text-gray-600 dark:text-gray-100/80 hover:backdrop-blur-sm dark:hover:bg-gray-700 hidden xl:block' title={isSidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}>
                     {
                         isSidebarOpen ? <MenuIcon size={24} /> : <MenuSquare size={24} />
                     }
@@ -33,14 +34,21 @@ const LeftSidebar = ({
             </div>
 
             <nav className="space-y-1">
-                <LeftNavButton icon={Home} label="Home" active isSidebarOpen={isSidebarOpen} />
+                {navLeftItems.map((item, index) => (
+                    <LeftNavButton
+                        key={index}
+                        {...item}
+                        isSidebarOpen={isSidebarOpen}
+                    />
+                ))}
+                {/* <LeftNavButton icon={Home} label="Home" active isSidebarOpen={isSidebarOpen} />
                 <LeftNavButton icon={Search} label="Search" isSidebarOpen={isSidebarOpen} />
                 <LeftNavButton icon={Compass} label="Explore" isSidebarOpen={isSidebarOpen} />
                 <LeftNavButton icon={Film} label="Reels" isSidebarOpen={isSidebarOpen} />
                 <LeftNavButton icon={Send} label="Messages" isSidebarOpen={isSidebarOpen} />
                 <LeftNavButton icon={Bell} label="Notifications" isSidebarOpen={isSidebarOpen} />
                 <LeftNavButton icon={PlusSquare} label="Create" isSidebarOpen={isSidebarOpen} />
-                <LeftNavButton icon={User} label="Profile" isSidebarOpen={isSidebarOpen} />
+                <LeftNavButton icon={User} label="Profile" isSidebarOpen={isSidebarOpen} /> */}
             </nav>
 
             <div className="absolute bottom-4 left-0 right-0 px-2 xl:px-4 space-y-1">

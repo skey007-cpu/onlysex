@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { signOutUser } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { usePathname } from "next/navigation";
+
 
 const LeftNavButton = ({
     icon: Icon,
     label,
+    path,
     active = false,
     isSidebarOpen,
     logout = false, // indique si c'est le bouton logout
 }) => {
+    const router = useRouter();
+    // const isActive = pathname === path;
+
     const handleClick = async () => {
         if (logout) {
             try {
@@ -19,6 +26,10 @@ const LeftNavButton = ({
             } catch (err) {
                 console.error("Erreur logout :", err);
             }
+        }
+
+        if (path) {
+            router.push(path); // 👈 navigation ici
         }
     };
 
@@ -33,7 +44,7 @@ const LeftNavButton = ({
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
         >
-            <Icon size={24} className={active ? "text-pink-500" : ""} />
+            <Icon size={24} className={active ? "text-pink" : ""} />
             {isSidebarOpen && <span className="truncate">{label}</span>}
         </button>
     );

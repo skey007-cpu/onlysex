@@ -1,3 +1,4 @@
+import { Home, Search, Compass, Film, Send, PlusSquare, User, Bell, Settings, Sun, Moon, Power, MenuIcon, MenuSquare } from 'lucide-react'
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Anal' },
@@ -259,6 +260,34 @@ const posts = [
     isLiked: false,
     isVerified: true,
   },
+  {
+    id: 4,
+    username: "dev_community",
+    avatar: "/images/user-3.png",
+    location: "San Francisco, CA",
+    imageUrl: "/73756159.webp",
+    caption:
+      "Just launched our new component library! Focus on accessibility and clean state management. #reactjs #webdev #a11y",
+    likes: 1542,
+    comments: 34,
+    time: "2 hours ago",
+    isLiked: false,
+    isVerified: true,
+  },
+  {
+    id: 5,
+    username: "ui_designer",
+    avatar: "/images/user-5.png",
+    location: "Remote",
+    imageUrl: "/73760113.webp",
+    caption:
+      "Finished the latest design system prototype. Focusing on modularity and dark mode implementation. Feedback welcome! 🤔 #designsystem #uiux #figma",
+    likes: 245,
+    comments: 8,
+    time: "1 day ago",
+    isLiked: false,
+    isVerified: true,
+  },
 ];
 
 const stories = [
@@ -378,3 +407,18 @@ export const avatarPlaceholderUrl =
   "https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg";
 
 export const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
+
+export const navLeftItems = [
+   { icon: Home, label: "Home", path: "/onlyboard" },
+  { icon: Search, label: "Search", path: "/search" },
+  { icon: Compass, label: "Explore", path: "/explore" },
+  { icon: Film, label: "Reels", path: "/reels" },
+  { icon: Send, label: "Messages", path: "/messages" },
+  { icon: Bell, label: "Notifications", path: "/notifications" },
+  { icon: PlusSquare, label: "Create", path: "/create" },
+  { icon: User, label: "Profile", path: "/profile" },
+];
+
+
+
