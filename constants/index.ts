@@ -421,4 +421,13 @@ export const navLeftItems = [
 ];
 
 
+export const navLeftItemsTwo = [
+  { icon: Home, label: "Home", path: "/onlyboard" },
+  { icon: Search, label: "Search", path: "/search" },
+   { icon: PlusSquare, label: "Create", path: "/create" },
+  { icon: Compass, label: "Explore", path: "/explore" },
+  { icon: User, label: "Profile", path: "/profile" },
+];
+
+
 

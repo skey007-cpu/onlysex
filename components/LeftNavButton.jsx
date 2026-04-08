@@ -14,7 +14,8 @@ const LeftNavButton = ({
     logout = false, // indique si c'est le bouton logout
 }) => {
     const router = useRouter();
-    // const isActive = pathname === path;
+    const pathname = usePathname();
+    const isActive = pathname === path;
 
     const handleClick = async () => {
         if (logout) {
@@ -39,8 +40,8 @@ const LeftNavButton = ({
             onClick={handleClick}
             className={`w-full flex items-center p-3 rounded-lg transition-colors duration-200 ease-in
         ${isSidebarOpen ? "space-x-4 justify-start" : "justify-center"}
-        ${active
-                    ? "font-bold text-gray-900 dark:text-white"
+        ${isActive
+                    ? "font-bold text-pink dark:text-pink"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
         >

@@ -4,6 +4,8 @@ import { styles } from "@/constants";
 import MobileHeader from '@/components/MobileHeader';
 import LeftSidebar from '@/components/LeftSidebar';
 import { useState } from "react";
+import Bottombar from "./Bottombar";
+import { Icon, Home } from "lucide-react";
 
 
 export default function Layout({
@@ -41,6 +43,8 @@ export default function Layout({
                 </main>
             </div>
 
+
+            <Bottombar />
         </div>
     );
 };
