@@ -24,7 +24,7 @@ const Bottombar = () => {
                         <item.icon
                             size={30}
                             className={`transition-all duration-200 ${isActive
-                                ? "text-black dark:text-white scale-100"
+                                ? "text-greens-95 font-bold dark:text-white scale-100"
                                 : "text-gray-400 scale-90"
                                 }`}
                         />

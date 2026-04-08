@@ -41,7 +41,7 @@ const LeftNavButton = ({
             className={`w-full flex items-center p-3 rounded-lg transition-colors duration-200 ease-in
         ${isSidebarOpen ? "space-x-4 justify-start" : "justify-center"}
         ${isActive
-                    ? "font-bold text-pink dark:text-pink"
+                    ? "font-bold text-greens-95 dark:text-greens-95"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
         >
