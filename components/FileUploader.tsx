@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from "react";
 
-import { useDropzone } from "react-dropzone";
+import { FileWithPath, useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { cn, convertFileToUrl, getFileType } from "@/lib/utils";
 import Image from "next/image";
@@ -10,23 +10,34 @@ import Thumbnail from "@/components/Thumbnail";
 import { MAX_FILE_SIZE } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { uploadFile } from "@/lib/actions/file.actions";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   ownerId: string;
   accountId: string;
   className?: string;
+
+  caption?: string;
+  tags?: string;
+  location?: string;
+  // fieldChange: (files: File[]) => void;
 }
 
-const FileUploader = ({ ownerId, accountId, className }: Props) => {
+const FileUploader = ({ ownerId, accountId, className, caption, tags, location }: Props) => {
+  // const [file, setFile] = useState<File[]>([]);
+  // const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
   const path = usePathname();
   const { toast } = useToast();
   const [files, setFiles] = useState<File[]>([]);
+  const router = useRouter();
+
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       setFiles(acceptedFiles);
-
+      // fieldChange(acceptedFiles);
+      // setFileUrl(convertFileToUrl(acceptedFiles[0]));
+      console.log("FILES 👉", acceptedFiles);
       const uploadPromises = acceptedFiles.map(async (file) => {
         if (file.size > MAX_FILE_SIZE) {
           setFiles((prevFiles) =>
@@ -44,36 +55,55 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
           });
         }
 
-        return uploadFile({ file, ownerId, accountId, path }).then(
+        return uploadFile({ file, ownerId, accountId, path, caption, tags, location }).then(
           (uploadedFile) => {
             if (uploadedFile) {
               setFiles((prevFiles) =>
                 prevFiles.filter((f) => f.name !== file.name),
               );
             }
+            router.push("/onlyboard");
+            console.log('Posted whith sucess')
           },
+
         );
       });
 
       await Promise.all(uploadPromises);
     },
-    [ownerId, accountId, path, toast],
+    [ownerId, accountId, path, toast, files, caption, tags, location],
   );
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  // const onDrop = useCallback(
+  //   (acceptedFiles: FileWithPath[]) => {
+  //     setFile(acceptedFiles);
+  //     fieldChange(acceptedFiles);
+  //     setFileUrl(convertFileToUrl(acceptedFiles[0]));
+  //   },
+  //   [file]
+  // );
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    // accept: {
+    //   "image/*": [".png", ".jpeg", ".jpg", ".svg"],
+    // },
+  });
 
-  const handleRemoveFile = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
-    fileName: string,
-  ) => {
-    e.stopPropagation();
-    setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
-  };
+  // const handleRemoveFile = (
+  //   e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+  //   fileName: string,
+  // ) => {
+  //   e.stopPropagation();
+  //   setFiles((prevFiles) => prevFiles.filter((file) => file.name !== fileName));
+  // };
 
   return (
-    <div {...getRootProps()} className="cursor-pointer">
-      <input {...getInputProps()} />
-      <Button type="button" className={cn("uploader-button", className)}>
+    <div
+      {...getRootProps()}
+      className="flex flex-center w-full  max-w-5xl flex-col bg-gray-20 rounded-xl cursor-pointer">
+
+      <input {...getInputProps()} className="cursor-pointer" />
+      {/* <Button type="button" className={cn("uploader-button", className)}>
         <Image
           src="/assets/icons/upload.svg"
           alt="upload"
@@ -81,50 +111,34 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
           height={24}
         />{" "}
         <p>Upload</p>
-      </Button>
-      {files.length > 0 && (
-        <ul className="uploader-preview-list">
-          <h4 className="h4 text-light-100">Uploading</h4>
+      </Button> */}
 
-          {files.map((file, index) => {
-            const { type, extension } = getFileType(file.name);
+      {/* {fileUrl ? (
+        <>
+          <div className="flex flex-1 justify-center w-full p-5 lg:p-10">
+            <img src={fileUrl} alt="image" className="file_uploader-img" />
+          </div>
+          <p className="file_uploader-label">Click or drag photo to replace</p>
+        </>
+      ) : ( */}
+      <div className="file_uploader-box ">
+        <img
+          src="/assets/icons/file-upload.svg"
+          width={96}
+          height={77}
+          alt="file upload"
+        />
 
-            return (
-              <li
-                key={`${file.name}-${index}`}
-                className="uploader-preview-item"
-              >
-                <div className="flex items-center gap-3">
-                  <Thumbnail
-                    type={type}
-                    extension={extension}
-                    url={convertFileToUrl(file)}
-                  />
+        <h3 className="base-medium text-light-2 mb-2 mt-6">
+          Drag photo here
+        </h3>
+        <p className="text-light-4 small-regular mb-6">SVG, PNG, JPG, Video</p>
 
-                  <div className="preview-item-name">
-                    {file.name}
-                  </div>
-                </div>
-
-                <Image
-                  src="/assets/icons/file-loader.gif"
-                  width={80}
-                  height={26}
-                  alt="Loader"
-                />
-
-                <Image
-                  src="/assets/icons/remove.svg"
-                  width={24}
-                  height={24}
-                  alt="Remove"
-                  onClick={(e) => handleRemoveFile(e, file.name)}
-                />
-              </li>
-            );
-          })}
-        </ul>
-      )}
+        <Button type="button" className="shad-button_dark_4">
+          Select from computer
+        </Button>
+      </div>
+      {/* )} */}
     </div>
   );
 };

@@ -6,18 +6,64 @@ import { appwriteConfig } from "@/lib/appwrite/config";
 import { ID, Models, Query } from "node-appwrite";
 import { constructFileUrl, getFileType, parseStringify } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
-import { getCurrentUser } from "@/lib/actions/user.actions";
+import { getCurrentUser, } from "@/lib/actions/user.actions";
+
+interface UploadFileProps {
+  file: File;
+  ownerId: string;
+  accountId: string;
+  path: string;
+  caption?: string;
+  tags?: string;
+  location?: string;
+}
+
+interface GetFilesProps {
+  types?: string[];
+  searchText?: string;
+  sort?: string;
+  limit?: number;
+}
+
+interface RenameFileProps {
+  fileId: string;
+  name: string;
+  extension: string;
+  path: string;
+}
+
+interface UpdateFileUsersProps {
+  fileId: string;
+  emails: string[];
+  path: string;
+}
+
+interface DeleteFileProps {
+  fileId: string;
+  bucketFileId: string;
+  path: string;
+}
+
+type FileType = "image" | "document" | "video" | "audio" | "other";
 
 const handleError = (error: unknown, message: string) => {
   console.log(error, message);
   throw error;
 };
 
+// export const submitPost = async (post: INewPost) => {
+
+// }
+
 export const uploadFile = async ({
   file,
   ownerId,
   accountId,
   path,
+  caption,
+  tags,
+  location, 
+
 }: UploadFileProps) => {
   const { storage, databases } = await createAdminClient();
 
@@ -29,6 +75,39 @@ export const uploadFile = async ({
       ID.unique(),
       inputFile,
     );
+
+   const fileType = file.type || "";
+   const isVideo = fileType.startsWith("video/");
+
+const mediaUrl = constructFileUrl(bucketFile.$id);
+
+const postDocument: any = {
+  caption,
+  tags: tags ? tags.split(",").map(t => t.trim()) : [],
+  location,
+  creator: ownerId,
+};
+
+if (isVideo) {
+  postDocument.videoUrl = mediaUrl;
+  postDocument.videoId = bucketFile.$id;
+} else {
+  postDocument.imageUrl = mediaUrl;
+  postDocument.imageId = bucketFile.$id;
+}
+console.log("IS VIDEO 👉", isVideo);
+console.log("MEDIA URL 👉", mediaUrl);
+
+    const newPost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postsCollectionId,
+      ID.unique(),
+      postDocument,
+    ) .catch(async (error: unknown) => {
+      await storage.deleteFile(appwriteConfig.bucketId, bucketFile.$id);
+      handleError(error, "Failed to create post document");
+    });
+
 
     const fileDocument = {
       type: getFileType(bucketFile.name).type,
@@ -56,7 +135,10 @@ export const uploadFile = async ({
       });
 
     revalidatePath(path);
-    return parseStringify(newFile);
+    return parseStringify({
+      file: newFile,
+      post: newPost,
+    });
   } catch (error) {
     handleError(error, "Failed to upload file");
   }

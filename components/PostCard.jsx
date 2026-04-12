@@ -1,109 +1,158 @@
-"use client"
+"use client";
 
-import { Bookmark, Heart, MessageCircle, MoreHorizontal, Send, User } from 'lucide-react'
-import React, { useState } from 'react'
+import {
+    Bookmark,
+    Heart,
+    MoreHorizontal,
+    Send,
+    User,
+} from "lucide-react";
+import React, { useMemo, useState } from "react";
 
-const PostCard = ({ post, src }) => {
+const PostCard = ({ post }) => {
+    // 🔹 STATE
+    const [isLiked, setIsLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(post.likes?.length || 0);
+    const [isSaved, setIsSaved] = useState(false);
 
-    const [isLiked, setIsLiked] = useState(post.isLiked)
-    const [likeCount, setlikeCount] = useState(post.likes)
+    // 🔹 DERIVED DATA (optimisé)
+    const isVideo = !!post.videoUrl;
+    const mediaUrl = post.imageUrl || post.videoUrl;
 
-    // like handler
+    // ❤️ Like (corrigé pour éviter bug async)
     const handleLike = () => {
-        setIsLiked(!isLiked)
-        setlikeCount(isLiked ? likeCount - 1 : likeCount + 1)
-    }
+        setIsLiked((prev) => {
+            setLikeCount((count) => (prev ? count - 1 : count + 1));
+            return !prev;
+        });
+    };
 
-    // Caption parser
+    // 🔖 Save
+    const handleSave = () => {
+        setIsSaved((prev) => !prev);
+    };
 
-    const renderCaptionWidthTags = (caption) => {
-        const segments = caption.split(/(\s+)/)
+    // 🏷️ Caption optimisé (useMemo = perf)
+    const parsedCaption = useMemo(() => {
+        if (!post.caption) return null;
 
-        return segments.map((segment, index) => {
+        return post.caption.split(/(\s+)/).map((segment, index) => {
+            const isTag = segment.startsWith("#") && segment.length > 1;
 
-            const isTag = segment.startsWith("#") && segment.length > 1
-            if (isTag) {
-                return <span key={index} className="text-sky-600 font-medium cursor-pointer hover:underline">
+            return isTag ? (
+                <span
+                    key={index}
+                    className="text-sky-600 font-medium cursor-pointer hover:underline"
+                >
                     {segment}
                 </span>
-            } else {
-                return <span key={index}>  {segment} </span>
-            }
-        })
-    }
+            ) : (
+                <span key={index}>{segment}</span>
+            );
+        });
+    }, [post.caption]);
 
     return (
         <div className="max-w-[500px] mx-auto mb-6">
-            {/* post Header */}
+
+            {/* HEADER */}
             <div className="p-3 flex items-start justify-between">
                 <div className="flex items-center space-x-3">
 
                     {/* Avatar */}
-                    <div className="size-10 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center flex-shrink-0">
-                        {
-                            src ? (<img src={src} className="size-full object-cover" />) :
-                                (<User size={20} className='text-white dark:text-gray-400' />)
-                        }
+                    <div className="size-10 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center">
+                        {post.creator?.imageUrl ? (
+                            <img
+                                src={post.creator.imageUrl}
+                                alt="avatar"
+                                className="size-full object-cover"
+                            />
+                        ) : (
+                            <User size={20} />
+                        )}
                     </div>
 
-                    {/* Name & Location */}
-                    <div className="">
-                        <p className="font-semibold flex items-center gap-1 text-sm hover:text-gray-600 cursor-pointer">
-                            {post.username}
-                            {post.isVerified && <img src="/images/verify_tick.png" className="w-5" />}
+                    {/* Infos */}
+                    <div>
+                        <p className="font-semibold text-sm">
+                            {post.creator?.username}
                         </p>
 
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500">
                             {post.location}
                         </p>
                     </div>
                 </div>
 
-                <MoreHorizontal size={24} className='cursor-pointer rotate-90 text-gray-500 hover:text-gray-900 dark:hover:text-white' />
-
+                <MoreHorizontal className="cursor-pointer rotate-90 text-gray-500" />
             </div>
 
+            {/* MEDIA (image ou vidéo clean) */}
+            <div className="w-full aspect-square bg-gray-100">
+                {mediaUrl && !isVideo && (
+                    <img
+                        src={mediaUrl}
+                        alt="post"
+                        className="w-full h-full object-cover"
+                    />
+                )}
 
-            {/* post Image */}
-            <div className="w-full bg-gray-100 dark:bg-gray-700 aspect-square">
-                <img src={post.imageUrl} alt={`Post by ${post.username}`} className="w-full object-cover" />
+                {mediaUrl && isVideo && (
+                    <video
+                        controls
+                        className="w-full h-full object-cover"
+                    >
+                        <source src={mediaUrl} type="video/mp4" />
+                    </video>
+                )}
             </div>
-            {/* Post Actions */}
+
+            {/* ACTIONS */}
             <div className="p-3 flex items-center justify-between">
-                {/* 1 */}
                 <div className="flex items-center space-x-4">
-                    <Heart onClick={handleLike} size={24} className={`cursor-pointer transition-colors ${isLiked ? "text-pink fill-pink" : "text-gray-800 dark:text-gray-200 hover:text-gray-500"}`} />
-                    <MessageCircle size={24} className="cursor-pointer text-gray-800 dark:text-gray-200 hover:text-gray-500" />
-                    <Send size={24} className='cursor-pointer text-gray-800 dark:text-gray-200 hover:text-gray-500 ' />
+
+                    {/* Like */}
+                    <Heart
+                        onClick={handleLike}
+                        className={`cursor-pointer transition ${isLiked
+                                ? "text-pink-500 fill-pink-500"
+                                : "text-gray-800 hover:text-gray-500"
+                            }`}
+                    />
+
+                    {/* Send */}
+                    <Send className="cursor-pointer text-gray-800 hover:text-gray-500" />
                 </div>
-                {/* 2 */}
-                <Bookmark size={24} className='cursor-pointer text-gray-800 dark:text-gray-200 hover:text-gray-500 ' />
+
+                {/* Save */}
+                <Bookmark
+                    onClick={handleSave}
+                    className={`cursor-pointer transition ${isSaved
+                            ? "text-pink-500 fill-pink-500"
+                            : "text-gray-800 hover:text-gray-500"
+                        }`}
+                />
             </div>
 
-            {/* Post Details */}
+            {/* DETAILS */}
             <div className="px-3 pb-3 space-y-1 text-sm">
                 <p className="font-semibold">
                     {new Intl.NumberFormat("fr-FR").format(likeCount)} likes
                 </p>
+
                 <p>
                     <span className="font-semibold mr-1">
-                        {post.username}
+                        {post.creator?.username}
                     </span>
-                    {renderCaptionWidthTags(post.caption)}
+                    {parsedCaption}
                 </p>
-                <div className="text-gray-500 dark:text-gray-400 cursoir-pointer">
-                    View all {post.comments} comments
-                </div>
-
 
                 <p className="text-xs text-gray-400">
-                    {post.time}
+                    {new Date(post.$createdAt).toLocaleDateString("fr-FR")}
                 </p>
-
-
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default PostCard
+export default PostCard;

@@ -572,6 +572,10 @@ a.active hr {
   .btn-prime {
     @apply bg-greens-95 hover:bg-greens-100 transition-all rounded-full button !important;
   }
+
+  .btn-primeT {
+    @apply bg-greens-95 hover:bg-greens-100 transition-all button !important;
+  }
   .flex-center {
     @apply flex items-center justify-center;
   }
@@ -581,7 +585,7 @@ a.active hr {
     @apply outline-none ring-offset-transparent focus:ring-transparent focus:ring-offset-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
   }
   .shad-input {
-    @apply border-none shadow-none p-0 shad-no-focus placeholder:text-light-200 body-2 !important;
+    @apply border-gray-20 p-3 shad-no-focus placeholder:text-light-200 body-2 !important;
   }
 
   .shad-form-item {
@@ -605,7 +609,14 @@ a.active hr {
   .shad-otp-slot {
     @apply text-[40px] font-medium rounded-xl ring-greens-95 shadow-drop-1 text-greens-100 justify-center flex border-2 border-light-300 size-12 md:size-16 gap-5 !important;
   }
+ .file_uploader-img {
+    @apply h-80 lg:h-[480px] w-full rounded-[24px] object-cover object-top;
+  }
 
+  .shad-input {
+    @apply h-12 border-gray-20 placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+  }
+  
   .shad-sheet {
     @apply pt-0 !important;
   }
@@ -740,6 +751,9 @@ a.active hr {
   }
   .form-submit-button {
     @apply btn-prime h-[66px] !important;
+  }
+  .form-submit-buttonT {
+    @apply btn-primeT h-[48px] w-full lg:w-1/2 !important;
   }
   .error-message {
     @apply body-2 mx-auto w-fit rounded-xl bg-error/5 px-8 py-4 text-center text-error !important;
@@ -1038,7 +1052,7 @@ a.active hr {
   } */
 
   .shad-textarea {
-    @apply h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-36 p-3 rounded-xl border-gray-20 !important;
   }
 
   /* Button */

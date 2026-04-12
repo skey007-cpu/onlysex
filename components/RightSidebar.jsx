@@ -1,10 +1,19 @@
-"use client"
-
+'use client'
 import { User } from 'lucide-react'
 import React from 'react'
-import { suggestions } from "@/constants";
+// import { suggestions } from "@/constants";
 
-const RightSidebar = () => {
+/**
+ * @typedef {Object} RightSidebarProps
+ * @property {any[]} posted
+ */
+
+const RightSidebar = ({ posted }) => {
+
+    const sugestions = { posted }
+
+    console.log({ sugestions })
+
     return (
         <div className='sticky top-0 pt-8 mt-[90px] space-y-5 w-full'>
             {/* Current User Profile Summary */}
@@ -15,10 +24,10 @@ const RightSidebar = () => {
                     </div>
                     <div className="">
                         <p className="font-semibold text-sm">
-                            my_user_handle
+                            {sugestions.posted[0].creator.fullName}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Jane Doe
+                            {sugestions.posted[0].creator.username}
                         </p>
                     </div>
                 </div>
@@ -45,7 +54,7 @@ const RightSidebar = () => {
                 {/* Suggestions items */}
 
                 {
-                    suggestions.map((user, index) => (
+                    sugestions.posted.map((user, index) => (
                         <div key={index} className="flex items-center justify-between">
                             <div className="flex items-center space-x-3">
                                 <div className="w-9 h-9 rounded-full overflow-hidden bg-gray-300 flex-shrink-0 flex items-center justify-center">
@@ -57,7 +66,7 @@ const RightSidebar = () => {
 
                                 <div className="text-sm">
                                     <p className="font-semibold">
-                                        {user.name}
+                                        {user.creator.username}
                                     </p>
 
                                     <p className="text-xs text-gray-500 dark:text-gray-400">
