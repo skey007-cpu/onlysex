@@ -1,5 +1,6 @@
 "use client";
 
+import { multiFormatDateString } from "@/lib/utils";
 import {
     Bookmark,
     Heart,
@@ -63,7 +64,7 @@ const PostCard = ({ post }) => {
                     <div className="size-10 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center">
                         {post.creator?.imageUrl ? (
                             <img
-                                src={post.creator.imageUrl}
+                                src={post.creator?.imageUrl}
                                 alt="avatar"
                                 className="size-full object-cover"
                             />
@@ -115,8 +116,8 @@ const PostCard = ({ post }) => {
                     <Heart
                         onClick={handleLike}
                         className={`cursor-pointer transition ${isLiked
-                                ? "text-pink-500 fill-pink-500"
-                                : "text-gray-800 hover:text-gray-500"
+                            ? "text-greens-95 fill-pink-500"
+                            : "text-gray-800 hover:text-gray-500"
                             }`}
                     />
 
@@ -128,8 +129,8 @@ const PostCard = ({ post }) => {
                 <Bookmark
                     onClick={handleSave}
                     className={`cursor-pointer transition ${isSaved
-                            ? "text-pink-500 fill-pink-500"
-                            : "text-gray-800 hover:text-gray-500"
+                        ? "text-greens-95 fill-pink-500"
+                        : "text-gray-800 hover:text-gray-500"
                         }`}
                 />
             </div>
@@ -148,7 +149,7 @@ const PostCard = ({ post }) => {
                 </p>
 
                 <p className="text-xs text-gray-400">
-                    {new Date(post.$createdAt).toLocaleDateString("fr-FR")}
+                    {multiFormatDateString(post.$createdAt)}
                 </p>
             </div>
         </div>
@@ -156,3 +157,9 @@ const PostCard = ({ post }) => {
 };
 
 export default PostCard;
+
+
+
+
+
+

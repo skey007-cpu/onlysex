@@ -38,6 +38,11 @@ interface UpdateFileUsersProps {
   path: string;
 }
 
+export type INewUser = {
+  fullName: string;
+  email: string;
+  username: string;
+};
 interface DeleteFileProps {
   fileId: string;
   bucketFileId: string;

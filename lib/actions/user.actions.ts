@@ -2,12 +2,13 @@
 
 import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
-import { Query, ID, Storage, ImageGravity } from "node-appwrite";
+import { Query, ID, Storage, ImageGravity, Account, Client } from "node-appwrite";
 import { parseStringify } from "@/lib/utils";
 import { cookies } from "next/headers";
 import { avatarPlaceholderUrl } from "@/constants";
 import { redirect } from "next/navigation";
 import { uploadFile } from "./file.actions";
+
 
 const getUserByEmail = async (email: string) => {
   const { databases } = await createAdminClient();
@@ -105,7 +106,9 @@ export const createAccount = async ({
   if (!accountId) throw new Error("Failed to send an OTP");
 
   if (!existingUser) {
-    const { databases } = await createAdminClient();
+    const { databases, avatars } = await createAdminClient();
+
+    const avatarUrl =  `https://ui-avatars.com/api/?name=${fullName}`;
 
     await databases.createDocument(
       appwriteConfig.databaseId,
@@ -114,7 +117,7 @@ export const createAccount = async ({
       {
         fullName,
         email,
-        imageUrl: avatarPlaceholderUrl,
+        imageUrl: avatarUrl,
         username,
         accountId,
       },
@@ -174,6 +177,19 @@ export const getCurrentUser = async () => {
   }
 };
 
+export const getCurrentUsers = async () => {
+
+  try {
+     const { account } = await createSessionClient();
+    const user = await account.get();
+    console.log("USER 👉", user);
+    return user;
+  } catch (error) {
+    console.log("Pas connecté", error);
+    return null;
+  }
+};
+
 export const signOutUser = async () => {
   const { account } = await createSessionClient();
 
@@ -204,7 +220,11 @@ export const signInUser = async ({ email }: { email: string }) => {
 };
 
 
-
+export type NewUser = {
+ fullName: string;
+  username: string;
+  email: string;
+};
 
 
 export type INewPostT = {

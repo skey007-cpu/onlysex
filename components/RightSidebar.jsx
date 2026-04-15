@@ -1,38 +1,50 @@
 'use client'
+
 import { User } from 'lucide-react'
 import React from 'react'
 // import { suggestions } from "@/constants";
+
 
 /**
  * @typedef {Object} RightSidebarProps
  * @property {any[]} posted
  */
 
-const RightSidebar = ({ posted }) => {
+const RightSidebar = ({ posted, user }) => {
+
 
     const sugestions = { posted }
+    const currentUser = { user }
 
     console.log({ sugestions })
 
     return (
-        <div className='sticky top-0 pt-8 mt-[90px] space-y-5 w-full'>
+        <div className='sticky top-0 mt-[25px] space-y-5 w-full'>
             {/* Current User Profile Summary */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                    <div className="w-14 h-14 rounded-full overflow-hidden bg-pink flex-shrink-0 flex items-center justify-center">
-                        <User size={32} className='text-white' />
+                    <div className="w-14 h-14 rounded-full bg-greens-95 overflow-hidden flex-shrink-0 flex items-center justify-center">
+
+                        <img
+                            src={
+                                currentUser.user?.imageUrl ||
+                                "<User size={32} className='text-white' />"
+                            }
+                            alt="creator"
+                            className="w-12 lg:h-12 rounded-full"
+                        />
                     </div>
                     <div className="">
                         <p className="font-semibold text-sm">
-                            {sugestions.posted[0].creator.fullName}
+                            {currentUser.user.fullName}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {sugestions.posted[0].creator.username}
+                            @{currentUser.user.username}
                         </p>
                     </div>
                 </div>
 
-                <button className="text-pink text-xs font-semibold hover:text-pink-700 dark:hover:text-pink-400">
+                <button className="text-greens-95 text-xs font-semibold hover:text-pink-700 dark:hover:text-pink-400">
                     Switch
                 </button>
 
@@ -59,7 +71,7 @@ const RightSidebar = ({ posted }) => {
                             <div className="flex items-center space-x-3">
                                 <div className="w-9 h-9 rounded-full overflow-hidden bg-gray-300 flex-shrink-0 flex items-center justify-center">
                                     {
-                                        user.src !== null ? (<img src={user.src} alt="profile_image" className="size-full " />)
+                                        user.creator.imageUrl !== null ? (<img src={user.creator.imageUrl} alt="profile_image" className="size-full " />)
                                             : (<User size={18} className='text-white dark:text-gray-400' />)
                                     }
                                 </div>
