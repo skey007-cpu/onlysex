@@ -36,7 +36,7 @@ const RightSidebar = ({ posted, user }) => {
                     </div>
                     <div className="">
                         <p className="font-semibold text-sm">
-                            {currentUser.user.fullName}
+                            {currentUser.user?.fullName}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                             @{currentUser.user.username}
