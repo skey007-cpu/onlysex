@@ -326,3 +326,64 @@ export async function getTotalSpaceUsed() {
     handleError(error, "Error calculating total space used:, ");
   }
 }
+
+
+export const getAllPosts = async () => {
+    const { databases } = await createAdminClient();
+
+    try {
+        const response = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.postsCollectionId,
+            [
+                Query.orderDesc("$createdAt"), // 🔥 les plus récents en premier
+            ]
+        );
+
+        return response.documents;
+    } catch (error) {
+        console.log("getAllPosts error:", error);
+        return [];
+    }
+};
+
+export const getUserWithPosts = async (userId: string) => {
+    const { databases } = await createAdminClient();
+
+    try {
+        // 👤 user
+        const user = await databases.getDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.usersCollectionId,
+            userId
+        );
+
+        // 📸 posts du user
+        const posts = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.postsCollectionId,
+            [Query.equal("creator", userId), Query.orderDesc("$createdAt")]
+        );
+
+        return {
+            user,
+            posts: posts.documents,
+        };
+    } catch (error) {
+        console.log("getUserWithPosts error:", error);
+        return { user: null, posts: [] };
+    }
+};
+
+
+export const getMyPosts = async (userId: string) => {
+    const { databases } = await createAdminClient();
+
+    const posts = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.postsCollectionId,
+        [Query.equal("creator", userId), Query.orderDesc("$createdAt")]
+    );
+
+    return posts.documents;
+};

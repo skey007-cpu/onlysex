@@ -55,6 +55,17 @@ a.active hr {
   }
 }
 
+video::-webkit-media-controls-timeline {
+    display: none;
+}
+
+video::-webkit-media-controls-current-time-display {
+    display: none;
+}
+
+video::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
 .animate-marquee {
   display: flex;
   animation: marquee 30s linear infinite;

@@ -14,7 +14,7 @@ const page = async () => {
 
 
     console.log('{posted} : ', posted)
-    console.log('{user} : ', user)
+    // console.log('{user} : ', user)
 
     return (
         <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-16 lg:max-w-7xl mx-auto p-4 lg:p-10 ">
@@ -23,18 +23,18 @@ const page = async () => {
             <div className="lg:col-span-1 min-w-0">
 
                 {/* Stories */}
-                <div className="p-4 mb-6 overflow-x-scroll whitespace-nowrap scrollbar-hide lg:mt-0 mt-4">
+                {/* <div className="p-4 mb-6 overflow-x-scroll whitespace-nowrap scrollbar-hide lg:mt-0 mt-4">
                     <div className="flex space-x-4">
                         {stories.map((story) => (
                             <StoryBubble key={story.id} src={story.avatar} {...story} />
                         ))}
                     </div>
-                </div>
+                </div> */}
                 {/* Post Feed */}
-                <div className="space-y-6">
+                <div className="space-y-6 w-full">
                     {/* posts */}
                     {posted && posted.map((post) => (
-                        <PostCard key={post.$id} post={post} />
+                        <PostCard key={post.$id} post={post} userId={user?.$id} />
                     ))}
 
                 </div>

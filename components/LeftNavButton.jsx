@@ -38,7 +38,7 @@ const LeftNavButton = ({
         <button
             type="button"
             onClick={handleClick}
-            className={`w-full flex items-center p-3 rounded-lg transition-colors duration-200 ease-in
+            className={`mt-[10rem] w-full flex items-center p-3 rounded-lg transition-colors duration-200 ease-in
         ${isSidebarOpen ? "space-x-4 justify-start" : "justify-center"}
         ${isActive
                     ? "font-bold text-greens-95 dark:text-greens-95"

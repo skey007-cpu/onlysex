@@ -43,6 +43,10 @@ export const sendEmailOTP = async ({ email }: { email: string }) => {
 
 
 
+
+
+
+
 // export const createAccount = async ({
 //   fullName,
 //   email,
@@ -368,3 +372,246 @@ export async function getRecentPost() {
   }
   
 }
+
+
+
+
+// export const toggleSave = async ({
+//     post,
+//     userId,
+// }: {
+//     post: any;
+//     userId: string;
+// }) => {
+//     const { databases } = await createAdminClient();
+
+//     const postId = post.creator?.$id;
+
+//     // 🔍 check si déjà saved
+//     const isSaved = post.save?.includes(userId);
+
+//     try {
+//         if (isSaved) {
+//             // ❌ remove userId from array
+//             const updatedSave = post.save.filter((id: string) => id !== userId);
+
+//             await databases.updateDocument(
+//                 appwriteConfig.databaseId,
+//                 appwriteConfig.postsCollectionId,
+//                 postId,
+//                 {
+//                     save: updatedSave,
+//                 }
+//             );
+
+//             return { status: "removed" };
+//         }
+
+//         // ✅ add userId
+//         const updatedSave = [...(post.save || []), userId];
+
+//         await databases.updateDocument(
+//             appwriteConfig.databaseId,
+//             appwriteConfig.postsCollectionId,
+//             postId,
+//             {
+//                 save: updatedSave,
+//             }
+//         );
+
+//         return { status: "added" };
+//     } catch (error) {
+//         console.log("toggleSave error:", error);
+//         throw new Error("Save toggle failed");
+//     }
+// };
+
+
+
+// export const checkIfSaved = async (postId: string, userId: string) => {
+   
+
+//     try {
+//        const { databases } = await createAdminClient();
+//         const result = await databases.listDocuments(
+//             appwriteConfig.databaseId,
+//             appwriteConfig.savesCollectionId,
+//             [
+//                 Query.equal("postId", postId),
+//                 Query.equal("userId", userId),
+//             ]
+//         );
+
+//         if (result.documents.length > 0) {
+//             return {
+//                 isSaved: true,
+//                 savedDocId: result.documents[0].$id,
+//             };
+//         }
+
+//         return {
+//             isSaved: false,
+//             savedDocId: null,
+//         };
+//     } catch (error) {
+//         console.log("checkIfSaved error:", error);
+
+//         return {
+//             isSaved: false,
+//             savedDocId: null,
+//         };
+//     }
+// };
+
+
+export const toggleLike = async ({
+    post,
+    userId,
+}: {
+    post: any;
+    userId: string;
+}) => {
+    const { databases } = await createAdminClient();
+
+    const postId = post.$id;
+    const likes = post.likes || [];
+
+    const alreadyLiked = likes.includes(userId);
+
+    try {
+        let updatedLikes;
+
+        if (alreadyLiked) {
+            // ❌ enlever le like
+            updatedLikes = likes.filter((id: string) => id !== userId);
+        } else {
+            // ❤️ ajouter le like
+            updatedLikes = [...likes, userId];
+        }
+
+        await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.postsCollectionId,
+            postId,
+            {
+                likes: updatedLikes,
+            }
+        );
+
+        return {
+            status: alreadyLiked ? "unliked" : "liked",
+            likes: updatedLikes,
+        };
+    } catch (error) {
+        console.log("toggleLike error:", error);
+        throw new Error("Like failed");
+    }
+};
+
+
+export const toggleSave = async ({
+    userId,
+    postId,
+}: {
+    userId: string;
+    postId: string;
+}) => {
+    const { databases } = await createAdminClient();
+
+    try {
+        // 🔍 Vérifier si déjà sauvegardé
+        // const existing = await databases.listDocuments(
+        //     appwriteConfig.databaseId,
+        //     appwriteConfig.savesCollectionId,
+        //     [
+        //         Query.equal("userId", userId),
+        //         Query.equal("postId", postId),
+        //     ]
+        // );
+
+        // ❌ Déjà sauvegardé → supprimer
+        // if (existing.documents.length > 0) {
+        //     await databases.deleteDocument(
+        //         appwriteConfig.databaseId,
+        //         appwriteConfig.savesCollectionId,
+        //         existing.documents[0].$id
+        //     );
+
+        //     return { status: "unsaved" };
+        // }
+
+        // ✅ Sinon → créer
+        const newSave = await databases.createDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.savesCollectionId,
+            ID.unique(),
+            {
+                userId,
+                postId,
+            }
+        );
+
+        return { status: "saved", data: newSave };
+    } catch (error) {
+        console.log("toggleSave error:", error);
+        throw new Error("Save failed");
+    }
+};
+
+
+export const checkIfSaved = async (postId: string, userId: string) => {
+    const { databases } = await createAdminClient();
+
+    try {
+        const result = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.savesCollectionId,
+            [
+                Query.equal("postId", postId),
+                Query.equal("userId", userId),
+            ]
+        );
+
+        const isSaved = result.documents.length > 0;
+
+        return {
+            isSaved,
+            savedDocId: isSaved ? result.documents[0].$id : null,
+        };
+    } catch (error) {
+        console.log("checkIfSaved error:", error);
+
+        return {
+            isSaved: false,
+            savedDocId: null,
+        };
+    }
+};
+
+
+
+export const updateUserBio = async ({
+    userId,
+    bio,
+}: {
+    userId: string;
+    bio: string;
+}) => {
+    const { databases } = await createAdminClient();
+
+    try {
+        const updatedUser = await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.usersCollectionId,
+            userId,
+            {
+                bio,
+            }
+        );
+
+        return updatedUser;
+    } catch (error) {
+        console.log("updateUserBio error:", error);
+        throw error;
+    }
+};

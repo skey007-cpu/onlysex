@@ -35,13 +35,13 @@ const LeftSidebar = ({
             </nav>
 
             <div className="absolute bottom-4 left-0 right-0 px-2 xl:px-4 space-y-1">
-                <LeftNavButton icon={Settings} label="Settings" isSidebarOpen={isSidebarOpen} />
-                <LeftNavButton logout icon={Power} label="Logout" isSidebarOpen={isSidebarOpen} />
+                {/* <LeftNavButton icon={Settings} label="Settings" isSidebarOpen={isSidebarOpen} /> */}
 
                 <button onClick={toggleDarkMode} className={`flex items-center p-3 rounded-lg transition-colors duration-200 w-full ${isSidebarOpen ? "space-x-4 justify-start" : "justify-center"} text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700`} title='Toggle Dark Mode'>
                     {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
                     {isSidebarOpen && <span className='truncate'>Theme</span>}
                 </button>
+                <LeftNavButton logout icon={Power} label="Logout" isSidebarOpen={isSidebarOpen} />
             </div>
         </div>
     )

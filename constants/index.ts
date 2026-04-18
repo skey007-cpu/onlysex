@@ -411,20 +411,17 @@ export const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
 export const navLeftItems = [
    { icon: Home, label: "Home", path: "/onlyboard" },
-  { icon: Search, label: "Search", path: "/search" },
-  { icon: Compass, label: "Explore", path: "/explore" },
-  { icon: Film, label: "Reels", path: "/reels" },
-  { icon: Send, label: "Messages", path: "/messages" },
-  { icon: Bell, label: "Notifications", path: "/notifications" },
+  // { icon: Search, label: "Search", path: "/search" },
   { icon: PlusSquare, label: "Create", path: "/create" },
+  { icon: Compass, label: "Explore", path: "/explore" },
   { icon: User, label: "Profile", path: "/profile" },
 ];
 
 
 export const navLeftItemsTwo = [
   { icon: Home, label: "Home", path: "/onlyboard" },
-  { icon: Search, label: "Search", path: "/search" },
-   { icon: PlusSquare, label: "Create", path: "/create" },
+  // { icon: Search, label: "Search", path: "/search" },
+  { icon: PlusSquare, label: "Create", path: "/create" },
   { icon: Compass, label: "Explore", path: "/explore" },
   { icon: User, label: "Profile", path: "/profile" },
 ];
