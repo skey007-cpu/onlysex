@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import VideoCard from "./VideoCard";
 
 const PostCard = ({ post, userId }) => {
     const [isSaved, setIsSaved] = useState(false);
@@ -92,32 +93,29 @@ const PostCard = ({ post, userId }) => {
         setLoading(false);
     };
 
-    // 🔖 SAVE (temporaire UI only)
-    // const handleSave = async () => {
-    //     const prevSaved = isSaved;
+    // const handleLike = (e) => {
+    //     e.stopPropagation();
+    //     src = mediaUrl
 
-    //     // ⚡ UI instant
-    //     setIsSaved(!prevSaved);
+    //     setIsLiked((prevLiked) => {
+    //         const newLiked = !prevLiked;
 
-    //     try {
-    //         const res = await toggleSave({
-    //             isSaved: prevSaved,
-    //             savedDocId,
-    //             userId,
-    //             postId: post.$id,
+    //         setLikeCount((prevLikes) =>
+    //             prevLiked ? prevLikes - 1 : prevLikes + 1
+    //         );
 
-    //         });
+    //         localStorage.setItem(`liked-${src}`, JSON.stringify(newLiked));
 
-    //         if (res.status === "deleted") {
-    //             setSavedDocId(null);
-    //         } else {
-    //             setSavedDocId(res.data.$id);
-    //         }
-    //     } catch (err) {
-    //         // 🔁 rollback si erreur
-    //         setIsSaved(prevSaved);
-    //     }
+    //         return newLiked;
+    //     });
     // };
+    // useEffect(() => {
+    //     src = mediaUrl
+    //     const saved = localStorage.getItem(`liked-${src}`);
+    //     if (saved) {
+    //         setIsLiked(JSON.parse(saved));
+    //     }
+    // }, [mediaUrl]);
 
     // 🏷️ Caption optimisé
     const parsedCaption = useMemo(() => {
@@ -140,7 +138,7 @@ const PostCard = ({ post, userId }) => {
     }, [post.caption]);
 
     return (
-        <div className="py-3 max-w-[500px] mx-auto mb-6 rounded-xl border-b border-l border-r z-2">
+        <div className=" max-w-[500px] mx-auto mb-6 rounded-xl border-b border-l border-r z-2">
 
             {/* HEADER */}
             <div className="p-3 flex items-start justify-between">
@@ -164,7 +162,7 @@ const PostCard = ({ post, userId }) => {
                     {/* Infos */}
                     <div>
                         <p className="font-semibold text-sm">
-                            {post.creator?.username}
+                            {post.creator?.fullName}
                         </p>
                         <p className="text-xs text-gray-500">
                             #{post.location}
@@ -173,19 +171,21 @@ const PostCard = ({ post, userId }) => {
                 </div>
 
                 {/* <Send className="cursor-pointer text-gray-800 hover:text-gray-500" /> */}
-                <button className="border p-1 rounded-lg font-semibold text-sm">Imbox Moi</button>
+                <Link href={`/profile/${post.creator?.$id}`}>
+                    <button className="border-b border-l border-r p-1.5 rounded-lg bg-greens-95 font-semibold text-white flex gap-1">
+                        Ecris moi
+                        {/* <Send className="cursor-pointer" /> */}
+                    </button>
+                </Link>
                 {/* <MoreHorizontal className="cursor-pointer rotate-90 text-gray-500" /> */}
             </div>
             {/* DETAILS */}
             <div className="px-3 pb-2 space-y-1 text-sm">
 
 
-                <p>
-                    {/* <span className="font-semibold mr-1">
-                        {post.creator?.username}
-                    </span> */}
+                {/* <p>
                     {parsedCaption}
-                </p>
+                </p> */}
 
                 <p className="text-xs text-gray-400">
                     {multiFormatDateString(post.$createdAt)}
@@ -203,57 +203,51 @@ const PostCard = ({ post, userId }) => {
                 )}
 
                 {mediaUrl && isVideo && (
-                    <video
-                        controls={true}
-                        controlsList="nodownload nofullscreen noremoteplayback noremoteplaybackspeed"
-                        disablePictureInPicture
-                        ref={videoRef}
-                        autoPlay
-                        muted
-                        playsInline
-                        loop
-                        className="w-full object-cover no-progress bg-black"
-                        onClick={(e) => {
-                            const video = e.currentTarget;
-                            video.paused ? video.play() : video.pause();
-                        }}
-                    // className="w-full h-full object-cover"
-                    >
-                        <source src={mediaUrl} type="video/mp4" />
-                    </video>
+                    // <video
+                    //     controls={true}
+                    //     controlsList="nodownload nofullscreen noremoteplayback noremoteplaybackspeed"
+                    //     disablePictureInPicture
+                    //     ref={videoRef}
+                    //     autoPlay
+                    //     muted
+                    //     playsInline
+                    //     loop
+                    //     className="w-full object-cover no-progress bg-black"
+                    //     onClick={(e) => {
+                    //         const video = e.currentTarget;
+                    //         video.paused ? video.play() : video.pause();
+                    //     }}
+                    // >
+                    //     <source src={mediaUrl} type="video/mp4" />
+                    // </video>
+
+                    <VideoCard
+                        src={mediaUrl}
+                        likeCount={likeCount}
+                        caption={parsedCaption}
+                        posty={post.creator?.username}
+                    />
                 )}
             </div>
 
             {/* ACTIONS */}
-            <div className="p-3 flex items-center justify-between">
-                <div className="flex items-center space-x-1">
+            <div className={`${mediaUrl && isVideo ? "" : "p-3"} flex items-center justify-between`}>
+                {mediaUrl && !isVideo && (
+                    <div className="flex items-center space-x-1">
+                        <Heart
+                            onClick={handleLike}
+                            fill={isLiked ? "currentColor" : "none"}
+                            className={`cursor-pointer transition ${isLiked
+                                ? "text-greens-95"
+                                : "text-gray-800 hover:text-gray-500"
+                                }`}
+                        />
+                        <p className="font-semibold">
+                            {new Intl.NumberFormat("fr-FR").format(likeCount)} likes
+                        </p>
+                    </div>
+                )}
 
-                    {/* ❤️ LIKE */}
-                    <Heart
-                        onClick={handleLike}
-                        fill={isLiked ? "currentColor" : "none"}
-                        className={`cursor-pointer transition ${isLiked
-                            ? "text-greens-95"
-                            : "text-gray-800 hover:text-gray-500"
-                            }`}
-                    />
-                    <p className="font-semibold">
-                        {new Intl.NumberFormat("fr-FR").format(likeCount)} likes
-                    </p>
-
-                    {/* 📤 SEND */}
-
-                </div>
-
-                {/* 🔖 SAVE */}
-                {/* <Bookmark
-                    onClick={handleSave}
-                    fill={isSaved ? "currentColor" : "none"}
-                    className={`cursor-pointer transition ${isSaved
-                        ? "text-greens-95"
-                        : "text-gray-800 hover:text-gray-500"
-                        }`}
-                /> */}
             </div>
 
         </div>

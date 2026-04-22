@@ -2,6 +2,19 @@ import { getMyPosts } from "@/lib/actions/file.actions";
 import { getCurrentUser } from "@/lib/actions/user.actions";
 import Link from "next/link";
 
+
+interface StabBlockProps {
+    value: string | number;
+    label: string;
+}
+
+const StatBlock = ({ value, label }: StabBlockProps) => (
+    <div className="flex-center gap-2">
+        <p className="small-semibold lg:body-bold">{value}</p>
+        <p className="small-medium lg:base-medium">{label}</p>
+    </div>
+);
+
 const MyProfilePage = async () => {
     const user = await getCurrentUser();
 
@@ -30,28 +43,31 @@ const MyProfilePage = async () => {
 
                         <div>
                             <h2 className="text-xl font-bold">
-                                {user.username}
+                                {user.fullName}
                             </h2>
-
-                            <p className="text-gray-500 text-sm">
-                                {user.bio || "Aucune bio"}
+                            <p className="small-regular md:body-medium text-light-3 text-center xl:text-left">
+                                @{user.username}
                             </p>
 
                             <div className="flex space-x-4 mt-2 text-sm">
-                                <span>
-                                    <strong>{posts.length}</strong> posts
-                                </span>
-                                {/* <span>
-                                <strong>0</strong> followers
-                            </span>
-                            <span>
-                                <strong>0</strong> following
-                            </span> */}
+                                <div className="flex gap-8 items-center justify-center xl:justify-start flex-wrap z-20">
+                                    <StatBlock value={user.posts.length} label="Posts" />
+                                    <StatBlock value={20} label="Followers" />
+                                    <StatBlock value={20} label="Following" />
+                                </div>
                             </div>
+
+                            <p className="text-gray-500 text-sm mt-3">
+                                {user.bio || "Aucune bio"}
+                            </p>
 
                             {/* ✏️ EDIT */}
 
                         </div>
+
+
+
+
 
                     </div>
                     <div>
