@@ -1,6 +1,7 @@
 import { getCurrentUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import ClientLayout from "@/components/ClientLayout";
+import { WalletProvider } from "@/components/WalletContext";
 
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
@@ -9,8 +10,8 @@ export default async function Layout({ children }: { children: React.ReactNode }
     if (!currentUser) redirect("/sign-in");
 
     return (
-
-        <ClientLayout>{children}</ClientLayout>
-
+        <WalletProvider>
+            <ClientLayout>{children}</ClientLayout>
+        </WalletProvider>
     );
 }
