@@ -33,7 +33,7 @@ const MobileHeader = ({ isDarkMode, toggleDarkMode, }) => {
                         className="flex items-center bg-gray-100 dark:bg-zinc-800 px-3 py-1 rounded-full active:scale-95 transition"
                     >
                         <span className="text-xs font-semibold text-gray-700 dark:text-gray-200">
-                            💰 {balance.toLocaleString()} pecs
+                            💰 {balance.toLocaleString("en-US")} pecs
                         </span>
                     </button>
 

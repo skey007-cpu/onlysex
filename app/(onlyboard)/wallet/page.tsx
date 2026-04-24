@@ -9,13 +9,13 @@ import {
 import { useWallet } from "@/components/WalletContext";
 
 const WalletPage = () => {
-    const { balance } = useWallet();
+    const { balance, transactions } = useWallet();
 
-    const transactions = [
-        { id: 1, type: "deposit", amount: 5000, label: "Recharge wallet", date: "Aujourd'hui" },
-        { id: 2, type: "withdraw", amount: 2000, label: "Achat service", date: "Hier" },
-        { id: 3, type: "deposit", amount: 10000, label: "Bonus", date: "2 jours" },
-    ];
+    // const transactions = [
+    //     { id: 1, type: "deposit", amount: 5000, label: "Recharge wallet", date: "Aujourd'hui" },
+    //     { id: 2, type: "withdraw", amount: 2000, label: "Achat service", date: "Hier" },
+    //     { id: 3, type: "deposit", amount: 10000, label: "Bonus", date: "2 jours" },
+    // ];
 
     return (
         <div className="min-h-screen dark:bg-zinc-950 text-gray-900 dark:text-white">
@@ -38,7 +38,7 @@ const WalletPage = () => {
                     </p>
 
                     <h2 className="text-3xl md:text-4xl font-bold mt-1">
-                        {balance.toLocaleString()} Pecos
+                        {balance.toLocaleString("en-US")} Pecos
                     </h2>
 
                     {/* ACTION BUTTONS */}
@@ -78,7 +78,7 @@ const WalletPage = () => {
 
                     <div className="space-y-3">
 
-                        {transactions.map((t) => (
+                        {transactions.map((t: { id: React.Key | null | undefined; type: string; label: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; date: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; amount: { toLocaleString: () => string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined; }; }) => (
                             <div
                                 key={t.id}
                                 className="flex items-center justify-between bg-white dark:bg-zinc-900 p-3 rounded-xl shadow-sm hover:shadow-md transition"

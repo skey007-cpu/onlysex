@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getUserWithPosts } from "@/lib/actions/file.actions";
+import PostCard from "@/components/PostCard";
+import PostCards from "@/components/PostCards";
 
 type Props = {
     params: Promise<{ userId: string }>;
@@ -11,6 +13,8 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
     const { tab = "posts" } = await searchParams;
 
     const { user, posts } = await getUserWithPosts(userId);
+
+    console.log("POSTS", posts);
 
     if (!user) {
         return <p className="text-center mt-10">Utilisateur introuvable</p>;
@@ -47,7 +51,9 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
 
                 {/* USER INFO */}
                 <div className="mt-10 ml-4 px-2 lg:px-0">
-                    <h2 className="text-lg lg:text-xl font-bold">@{user.username}</h2>
+                    <h2 className="text-lg lg:text-xl font-bold">
+                        @{user.username}
+                    </h2>
                     <p className="text-gray-400 text-sm max-w-xl">
                         {user.bio || "Aucune bio"}
                     </p>
@@ -60,7 +66,7 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
                         <p className="text-lg font-bold">$10 / month</p>
                     </div>
 
-                    <button className="bg-greens-95 text-white px-3 py-1 rounded-lg">
+                    <button className="bg-green-500 text-white px-3 py-1 rounded-lg">
                         Subscribe
                     </button>
                 </div>
@@ -86,116 +92,26 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
                     >
                         Media
                     </Link>
-
                 </div>
 
                 {/* 🔥 CONTENT */}
                 <div className="mt-4">
 
-                    {/* 🟥 POSTS */}
+                    {/* 🟥 POSTS (AVEC ACHAT) */}
                     {tab === "posts" && (
                         <div className="space-y-6">
-                            {posts.map((post) => {
-                                const isLocked = true; // You can implement your logic to determine if the post is locked or not
-
-                                return (
-                                    <div key={post.$id} className="bg-gray-900 rounded-xl p-4">
-
-                                        {/* USER */}
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <img
-                                                alt=""
-                                                src={post.creator.imageUrl}
-                                                className="w-10 h-10 rounded-full object-cover"
-                                            />
-                                            <div>
-                                                <p className="font-bold">@{post.creator.username}</p>
-                                                <p className="text-xs text-gray-400">
-                                                    {post.creator.fullName}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* CAPTION */}
-                                        <p className="mb-3">{post.caption}</p>
-
-                                        {/* MEDIA */}
-                                        {!isLocked && post.imageUrl && (
-                                            <img
-                                                alt=""
-                                                src={post.imageUrl}
-                                                className="w-full max-h-[500px] object-cover rounded-lg"
-                                            />
-                                        )}
-
-                                        {!isLocked && post.videoUrl && (
-                                            <video
-                                                controls
-                                                className="w-full max-h-[500px] lg:max-h-[400px] object-cover rounded-lg"
-                                            >
-                                                <source src={post.videoUrl} />
-                                            </video>
-                                        )}
-
-                                        {/* LOCK */}
-                                        {isLocked && (
-                                            <div className="mt-3 text-center">
-                                                <button className="bg-white text-black px-3 py-1 rounded-lg text-sm">
-                                                    Unlock 🔒
-                                                </button>
-                                            </div>
-                                        )}
-
-                                        {/* STATS */}
-                                        {!isLocked && (
-                                            <div className="mt-3 text-sm text-gray-400">
-                                                ❤️ {post.likes.length} likes
-                                            </div>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                            {posts.map((post) => (
+                                <PostCards key={post.$id} post={post} />
+                            ))}
                         </div>
                     )}
 
                     {/* 🟦 MEDIA */}
                     {tab === "media" && (
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-                            {mediaPosts.map((post) => {
-                                const isLocked = true;
-
-                                return (
-                                    <div
-                                        key={post.$id}
-                                        className="relative aspect-square rounded-xl overflow-hidden"
-                                    >
-                                        {post.imageUrl ? (
-                                            <img
-                                                alt=""
-                                                src={post.imageUrl}
-                                                className={`w-full h-full object-cover ${isLocked ? "blur-md" : ""
-                                                    }`}
-                                            />
-                                        ) : (
-                                            <video
-                                                muted
-                                                className={`w-full h-full object-cover ${isLocked ? "blur-md" : ""
-                                                    }`}
-                                            >
-                                                <source src={post.videoUrl} />
-                                            </video>
-                                        )}
-
-                                        {isLocked && (
-                                            <div className="absolute inset-0 flex items-center justify-center bg-black/70">
-                                                <button className="bg-white text-black px-3 py-1 rounded-lg text-sm">
-                                                    Unlock 🔒
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                            {mediaPosts.map((post) => (
+                                <PostCards key={post.$id} post={post} />
+                            ))}
                         </div>
                     )}
 
