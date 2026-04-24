@@ -8,7 +8,7 @@ type Props = {
 
 const ProfilePage = async ({ params, searchParams }: Props) => {
     const { userId } = await params;
-    const { tab = "media" } = await searchParams;
+    const { tab = "posts" } = await searchParams;
 
     const { user, posts } = await getUserWithPosts(userId);
 
@@ -68,6 +68,16 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
                 {/* 🧭 TABS */}
                 <div className="flex justify-around lg:justify-start lg:gap-10 mt-6 border-b border-gray-800">
                     <Link
+                        href="?tab=posts"
+                        className={`py-3 ${tab === "posts"
+                            ? "border-b-2 border-white"
+                            : "text-gray-500"
+                            }`}
+                    >
+                        Posts
+                    </Link>
+
+                    <Link
                         href="?tab=media"
                         className={`py-3 ${tab === "media"
                             ? "border-b-2 border-white"
@@ -77,15 +87,6 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
                         Media
                     </Link>
 
-                    <Link
-                        href="?tab=posts"
-                        className={`py-3 ${tab === "posts"
-                            ? "border-b-2 border-white"
-                            : "text-gray-500"
-                            }`}
-                    >
-                        Posts
-                    </Link>
                 </div>
 
                 {/* 🔥 CONTENT */}
