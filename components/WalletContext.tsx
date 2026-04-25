@@ -15,7 +15,7 @@ type Transaction = {
 export const WalletProvider = ({ children }: {
     children: React.ReactNode;
 }) => {
-    const [balance, setBalance] = useState(2542452);
+    const [balance, setBalance] = useState(6000);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [purchasedPosts, setPurchasedPosts] = useState<string[]>([]);
 
@@ -67,7 +67,7 @@ export const WalletProvider = ({ children }: {
             {
                 id: Date.now(),
                 type: "withdraw",
-                amount: 2000,
+                amount: price,
                 label: "Achat contenu",
                 date: "Maintenant",
             },

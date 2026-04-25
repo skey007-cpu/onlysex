@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getUserWithPosts } from "@/lib/actions/file.actions";
 import PostCard from "@/components/PostCard";
 import PostCards from "@/components/PostCards";
+import PostMediaCards from "@/components/PostMediaCards";
 
 type Props = {
     params: Promise<{ userId: string }>;
@@ -110,7 +111,7 @@ const ProfilePage = async ({ params, searchParams }: Props) => {
                     {tab === "media" && (
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
                             {mediaPosts.map((post) => (
-                                <PostCards key={post.$id} post={post} />
+                                <PostMediaCards key={post.$id} post={post} />
                             ))}
                         </div>
                     )}

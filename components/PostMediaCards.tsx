@@ -13,7 +13,7 @@ const getPostPrice = (postId: string) => {
 
 
 
-const PostCards = ({ post }) => {
+const PostMediaCards = ({ post }) => {
 
     console.log("POSTeS", post);
     const { buyContent, purchasedPosts } = useWallet();
@@ -29,29 +29,7 @@ const PostCards = ({ post }) => {
     };
 
     return (
-        <div className="bg-gray-900 rounded-xl p-4 shadow-sm hover:shadow-md transition">
-
-            {/* 👤 USER */}
-            <div className="flex items-center gap-3 mb-3">
-                <img
-                    src={post.creator.imageUrl}
-                    alt=""
-                    className="w-10 h-10 rounded-full object-cover"
-                />
-                <div>
-                    <p className="font-bold text-white">
-                        @{post.creator.username}
-                    </p>
-                    <p className="text-xs text-gray-400">
-                        {post.creator.fullName}
-                    </p>
-                </div>
-            </div>
-
-            {/* 📝 CAPTION */}
-            <p className="mb-3 text-gray-200">
-                {post.caption}
-            </p>
+        <div className="rounded-xl p-2 shadow-sm hover:shadow-md transition">
 
             {/* 🎬 CONTENT */}
             <div className="relative">
@@ -61,7 +39,7 @@ const PostCards = ({ post }) => {
                     <img
                         src={post.imageUrl}
                         alt=""
-                        className={`w-full max-h-[500px] object-cover rounded-lg transition duration-500 ${isUnlocked ? "blur-0" : "blur-md scale-105"
+                        className={`w-full object-cover rounded-lg transition duration-500 ${isUnlocked ? "blur-0" : "blur-md scale-105"
                             }`}
                     />
                 )}
@@ -71,7 +49,7 @@ const PostCards = ({ post }) => {
                     <video
                         controls={isUnlocked}
                         muted={!isUnlocked}
-                        className={`w-full max-h-[500px] object-cover rounded-lg transition duration-500 ${isUnlocked ? "blur-0" : "blur-md scale-105"
+                        className={`w-full object-cover rounded-lg transition duration-500 ${isUnlocked ? "blur-0" : "blur-md scale-105"
                             }`}
                     >
                         <source src={post.videoUrl} />
@@ -88,7 +66,7 @@ const PostCards = ({ post }) => {
 
                         <button
                             onClick={handleUnlock}
-                            className="bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 active:scale-95 transition"
+                            className="bg-white text-black px-2 py-2 rounded-lg font-semibold hover:bg-gray-200 active:scale-95 transition"
                         >
                             Débloque pour {price} pecos
                         </button>
@@ -99,14 +77,14 @@ const PostCards = ({ post }) => {
             </div>
 
             {/* ❤️ STATS */}
-            {isUnlocked && (
+            {/* {isUnlocked && (
                 <div className="mt-3 text-sm text-gray-400">
                     ❤️ {post.likes.length} likes
                 </div>
-            )}
+            )} */}
 
         </div>
     );
 };
 
-export default PostCards;
+export default PostMediaCards;
