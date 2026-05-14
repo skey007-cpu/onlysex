@@ -15,7 +15,7 @@ type Transaction = {
 export const WalletProvider = ({ children }: {
     children: React.ReactNode;
 }) => {
-    const [balance, setBalance] = useState(6000);
+    const [balance, setBalance] = useState(3000);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [purchasedPosts, setPurchasedPosts] = useState<string[]>([]);
 
